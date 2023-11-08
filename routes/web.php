@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserController;
 
 /*
@@ -20,5 +21,14 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 });
+Route::get('/user', function () {
+    return view('user');
+});
+Route::get('/dbconnect', function () {
+    return view('dbconnect');
+});
 
-Route::get("user/{id}", [UserController::class, 'show']);
+
+Route::get("dbconnect", [UserController::class, 'index']);
+Route::post("user", [UserController::class, 'show']);
+
