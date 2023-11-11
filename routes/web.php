@@ -30,5 +30,9 @@ Route::get('/dbconnect', function () {
 
 
 Route::get("dbconnect", [UserController::class, 'index']);
-Route::post("user", [UserController::class, 'show']);
+// Route::post("user", [UserController::class, 'show']);
 
+
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
