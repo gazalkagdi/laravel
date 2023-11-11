@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -31,12 +32,15 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
-    
-        // Assuming 'testt' is the name of your authentication model
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/');
+        
+        $user = DB::table('testt')->where('username', $credentials['username'])->first();
+
+        if ($user && $credentials['password'] === $user->password) {
+            // Authentication successful
+            return redirect()->route('login')->with('error', 'Login successful');
         }
-    
+
+        // Authentication failed
         return redirect()->route('login')->with('error', 'Invalid credentials');
     }
     
